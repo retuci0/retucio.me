@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/server.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>serber epiko</title>
+</head>
+<body>
+
+<header>
+  <h1>&gt; retuci0/server</h1>
+  <nav>
+    <a href="/index.html">inicio</a>
+    <a href="/server.html">server</a>
+    <a href="https://github.com/retuci0" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://discordapp.com/users/806597513943056464" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="matrix:u/retucio:matrix.org" target="_blank">[m]</a>
+  </nav>
+</header>
+
+<div id="status-box">
+  <span id="status-led">[ ? ]</span>
+  <span id="status-text">cargando...</span>
+</div>
+
+<div class="section">
+  <div class="section-label">// info</div>
+  <p>un SMP (semi)vanilla para tanto <strong>bedrock</strong> como <strong>java</strong>. versión <strong>1.21.11</strong>.</p>
+  <p>lo único que lo hace semivanilla es un plugin de tpa hecho por mí, pero quitando eso 100% vanilla.</p>
+</div>
+
+<div class="section">
+  <div class="section-label">// características</div>
+  <div class="feature-row"><span class="feat-name">crossplay</span><span class="feat-desc">mediante Geyser</span></div>
+  <div class="feature-row"><span class="feat-name">semivanilla</span><span class="feat-desc">tpa, etc.</span></div>
+  <div class="feature-row"><span class="feat-name">rendimiento</span><span class="feat-desc">horroroso (solo 4GB RAM)</span></div>
+  <div class="feature-row"><span class="feat-name">uptime</span><span class="feat-desc">24/7 (casi), hosteado desde casa</span></div>
+</div>
+
+<div class="section">
+  <div class="section-label">// encender el server</div>
+  <p>el servidor está <strong>apagado</strong> por defecto para ahorrar recursos.</p>
+  <p>para encenderlo, escribe <span class="cmd">!abrir</span> en el Discord.</p>
+</div>
+
+<div class="section">
+  <div class="section-label">// ip</div>
+  <p>mi IP pública cambia cada tanto, así que uso un bot de Discord para compartirla.</p>
+  <p>únete al Discord y escribe <span class="cmd">!ip</span> en <span class="cmd">#momazos-grasosos</span> para recibir la IP actual.</p>
+  <p style="margin-top:10px;"><a href="https://discord.gg/73kP644XWe" target="_blank">&gt; unirse al Discord</a></p>
+</div>
+
+<div class="section">
+  <div class="section-label">// reglas</div>
+  <p>no hay reglas (salvo máquinas de lag, eso non).</p>
+</div>
+
+<footer>
+  &copy; 2025 tu madre inc.; ningún derecho reservado :P &mdash;
+  <a href="javascript:alert('por discord o matrix')">contacto</a>
+</footer>
+
+<script>
+  async function checkStatus() {
+    const led  = document.getElementById('status-led');
+    const text = document.getElementById('status-text');
+    try {
+      const res  = await fetch('php/status.php?_=' + Date.now());
+      const data = await res.json();
+      if (data.online) {
+        led.textContent  = '[ + ]';
+        led.className    = 'online';
+        text.textContent = 'ONLINE - el server está abierto';
+      } else {
+        led.textContent  = '[ - ]';
+        led.className    = 'offline';
+        text.textContent = 'OFFLINE - usa !abrir en Discord';
+      }
+    } catch (e) {
+      led.textContent  = '[ ! ]';
+      led.className    = 'error';
+      text.textContent = 'error al consultar el estado';
+    }
+  }
+  checkStatus();
+  setInterval(checkStatus, 30000);
+</script>
+
+</body>
+</html>
