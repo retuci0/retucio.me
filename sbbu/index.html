@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>super bert bros - wasm edition</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        canvas {
+            border: 2px solid #fff;
+            width: 1080px;
+            height: 720px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var Module = {
+            canvas: document.getElementById('canvas'),
+            print: (text) => console.log("[Game]", text),
+            printErr: (text) => console.error("[Game]", text),
+            onRuntimeInitialized: () => console.log("Runtime ready")
+        };
+    </script>
+
+    <script src="super_bert_bros.js"></script>
+</body>
+</html>
